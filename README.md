@@ -4,7 +4,7 @@ Alien planet bonus = {'Jupiter': 45x, 'Saturn': 25x, 'Uranus': 15x, 'Neptune': 1
 
 Astronaut planet bonus = 5x
 
-JSON request data
+Sample json request data
 ```
 {
     "Jupiter": "1000",
@@ -15,5 +15,12 @@ JSON request data
     "Venus": "0",
     "Earth": "1200",
     "Mars": "0"
+}
+```
+
+Sample result
+```
+{
+    "result": "Selamat! Planet Earth keluar. Anda mendapatkan 6000 sebagai hasil taruhan."
 }
 ```
