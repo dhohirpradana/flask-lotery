@@ -1,8 +1,8 @@
 # Lotery App
 
-Alien planet bonus = {'Jupiter': 45, 'Saturn': 25, 'Uranus': 15, 'Neptune': 10}
+Alien planet bonus = {'Jupiter': 45x, 'Saturn': 25x, 'Uranus': 15x, 'Neptune': 10x}
 
-Astronaut planet bonus = 5
+Astronaut planet bonus = 5x
 
 JSON request data
 ```
