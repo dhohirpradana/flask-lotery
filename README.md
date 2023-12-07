@@ -1,10 +1,10 @@
-# Lotery
+# Lotery App
 
-alien planet bonus = {'Jupiter': 45, 'Saturn': 25, 'Uranus': 15, 'Neptune': 10}
+Alien planet bonus = {'Jupiter': 45, 'Saturn': 25, 'Uranus': 15, 'Neptune': 10}
 
-astronaut planet bonus = 5
+Astronaut planet bonus = 5
 
-json req data
+JSON request data
 ```
 {
     "Jupiter": "1000",
