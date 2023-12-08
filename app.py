@@ -11,8 +11,8 @@ class LotrePlanet:
         self.astronaut = ['Mercury', 'Venus', 'Earth', 'Mars']
         self.max_planets = 6
         self.bonus_multiplier = 5
-        self.astronaut_chance = 0.5
-        self.alien_chance = 0.5
+        self.astronaut_chance = 0.1
+        self.alien_chance = 0.1
         self.alien_bonus = {'Jupiter': 45, 'Saturn': 25, 'Uranus': 15, 'Neptune': 10}
         self.astronaut_bonus = 5
 
@@ -24,7 +24,7 @@ class LotrePlanet:
             return "Anda belum memilih planet untuk melakukan lotre."
         
         # Membuat daftar nilai yang tidak valid
-        invalid_values = [planet for planet, value in chosen_planets.items() if not value.isdigit() or int(value) <= -1]
+        invalid_values = [planet for planet, value in chosen_planets.items() if not str(value).isdigit() or int(value) <= -1]
         chosen_planets = {planet: value for planet, value in chosen_planets.items() if int(value) != 0}
 
         # Validasi jumlah planet yang dipilih
@@ -40,7 +40,10 @@ class LotrePlanet:
 
         if (result in self.astronaut and random.random() < self.astronaut_chance) and result in chosen_planets:
             astronaut_bonus = sum(int(value) for key, value in chosen_planets.items() if key in self.astronaut)
-            return f"Selamat! Astronot keluar. Anda mendapatkan bonus {astronaut_bonus * self.astronaut_bonus} sebagai hasil taruhan."
+            return jsonify({
+                "out": "Astronaut",
+                "bonus": astronaut_bonus * self.astronaut_bonus
+            }), 200
 
         if (result in self.alien and random.random() < self.alien_chance) and result in chosen_planets:
             total_bonus = 0
@@ -49,28 +52,43 @@ class LotrePlanet:
                     total_bonus += int(taruhan) * self.astronaut_bonus
                 elif planet in self.alien:
                     total_bonus += int(taruhan) * self.alien_bonus[planet]
-            return f"Selamat! Alien keluar. Anda mendapatkan bonus {total_bonus} sebagai hasil taruhan."
+            return jsonify({
+                "out": "Alien",
+                "bonus": total_bonus
+            }), 200
 
         if result in chosen_planets:
             if result in self.astronaut:
                 hasil = int(chosen_planets[result]) * self.astronaut_bonus
-                return f"Selamat! Planet {result} keluar. Anda mendapatkan {hasil} sebagai hasil taruhan."
+                return jsonify({
+                    "out": result,
+                    "bonus": hasil
+                }), 200
             else:
                 hasil = int(chosen_planets[result]) * self.alien_bonus[result]
-                return f"Selamat! Planet {result} keluar. Anda mendapatkan {hasil} sebagai hasil taruhan."
+                return jsonify({
+                    "out": result,
+                    "bonus": hasil
+                }), 200
 
         if total_bonus == 0:
-            return f"Planet {result} keluar. Tidak ada hasil taruhan untuk anda."
+            return jsonify({
+                "out": result,
+                "bonus": 0
+            }), 200
         else:
-            return f"Total bonus Anda adalah: {total_bonus}"
+            return jsonify({
+                "out": result,
+                "bonus": total_bonus
+            }), 200
 
 lotre = LotrePlanet()
 
-@app.route('/lotre', methods=['POST'])
+@app.route('/galaxy', methods=['POST'])
 def lotre_handler():
     data = request.get_json()
     result = lotre.lotre(data)
-    return jsonify({'result': result})
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True)
