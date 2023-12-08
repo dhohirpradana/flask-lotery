@@ -11,8 +11,8 @@ class LotrePlanet:
         self.astronaut = ['Mercury', 'Venus', 'Earth', 'Mars']
         self.max_planets = 6
         self.bonus_multiplier = 5
-        self.astronaut_chance = 0.1
-        self.alien_chance = 0.1
+        self.astronaut_chance = 0.09
+        self.alien_chance = 0.05
         self.alien_bonus = {'Jupiter': 45, 'Saturn': 25, 'Uranus': 15, 'Neptune': 10}
         self.astronaut_bonus = 5
 
